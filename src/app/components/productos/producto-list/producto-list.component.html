@@ -1,0 +1,49 @@
+<div class="table-container table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Cantidad en Stock</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Categoria</th>
+          <th class="text-center" scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of productoList; track item.id) {
+        <tr>
+          <th scope="row">{{item.id}}</th>
+          <td>{{item.nombre}}</td>
+          <td>{{item.descripcion}}</td>
+          <td>{{item.cantidadEnStock}}</td>
+          <td>{{item.precio}}</td>
+          <td>{{item.categoria.nombre}}</td>
+          <td>
+            <div class="d-flex justify-content-evenly align-items-center">
+              <button type="button" (click)="showDetail(item, formModal)" class="btn btn-secondary">
+                <i class="fa-solid fa-eye white"
+                ></i>
+              </button>
+              <button type="button" (click)="deleteProducto(item)" class="btn btn-danger">
+                <i class="fa-solid fa-trash white"
+                ></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  
+  <app-modal size="lg" #formModal>
+    <app-producto-form 
+    
+    [producto]="currentProducto" 
+    [action]="'edit'"
+    [title]="'Update producto'"
+    >
+  </app-producto-form>
+  </app-modal>

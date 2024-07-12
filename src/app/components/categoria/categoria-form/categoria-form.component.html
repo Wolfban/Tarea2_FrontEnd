@@ -1,0 +1,65 @@
+<form (ngSubmit)="handleAction(frm)" autocomplete="off" #frm="ngForm" class="add-categoria-container">
+  <h3 class="mb-5 px-5">{{title}}</h3>
+  <div class="border-bottom pb-3 mb-3 px-5">
+    <div class="row">
+      <div class="col-6">
+        <label for="nombre" class="form-label mb-2">
+          Name
+        </label>
+        <input #nombre="ngModel" type="text" class="form-control" id="nombre" name="nombre" 
+          placeholder="Xbox"
+          [(ngModel)]="categoria.nombre" 
+          [ngClass]="{ 
+            'is-invalid': nombre.invalid && nombre.touched,
+            'is-valid': nombre.valid && nombre.touched
+          }" 
+          required 
+        />
+        @if (nombre.invalid) {
+          <div *ngIf="nombre.invalid" class="invalid-feedback">
+            Please add a valid name
+          </div>
+        }
+      </div>
+      <div class="col-6">
+        <label for="descripcion" class="form-label mb-2">
+          Descripcion
+        </label>
+        <input #descripcion="ngModel" type="text" class="form-control" id="descripcion" 
+          name="descripcion" 
+          placeholder="Descripcion"
+          [(ngModel)]="categoria.descripcion" 
+          [ngClass]="{ 
+            'is-invalid': descripcion.invalid && descripcion.touched,
+            'is-valid': descripcion.valid && descripcion.touched
+          }" 
+          required 
+        />
+        @if (descripcion.invalid) {
+          <div *ngIf="descripcion.invalid" class="invalid-feedback">
+            Please add a valid lastname
+          </div>
+        }
+      </div>
+      
+    </div>
+  </div>
+  <div class="pb-3 mb-3 d-flex justify-content-center align-items-center">
+    <button
+      type="submit"
+      class="btn btn-primary d-flex align-items-center">
+      <i class="fa-solid white me-2"
+        [ngClass]="{'fa-plus': action == 'add', 'fa-pencil':  action == 'edit'}"
+      ></i>
+      <p class="mb-0"> {{title}} </p>
+    </button>
+  </div>
+  <div class="d-flex justify-content-center align-items-center">
+    @if(feedbackMessage.message) {
+      <p class="pb-0" [ngClass]="{
+        'text-danger': feedbackMessage.type == 'ERROR',
+        'text-success': feedbackMessage.type == 'SUCCESS'
+        }">{{feedbackMessage.message}}</p>
+    }
+  </div>
+</form>
